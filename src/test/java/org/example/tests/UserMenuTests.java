@@ -36,7 +36,8 @@ public class UserMenuTests extends TestBase {
                         .enterToMemberMenu()
                         .enterToactivity()
                         .getLasttActivity();
-        Assert.assertTrue(activityText.contains("just now"), "wrong activity");
+        System.out.println(activityText);
+        Assert.assertTrue(activityText.contains("Igor added list for activity to QA Haifa8"), "wrong activity");
 
     }
 
