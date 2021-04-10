@@ -18,7 +18,6 @@ public class CurrentBoardTests extends TestBase {
                 .enterToCurrentBoard(currentBoard.boardName);
     }
 
-
     @Test
     public void createNewList() {
         int countOfListsBefore = currentBoard.listsSize();
