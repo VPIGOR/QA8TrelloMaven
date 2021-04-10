@@ -1,5 +1,6 @@
 package org.example.tests;
 
+import com.beust.jcommander.Parameter;
 import org.example.pages.CurrentBoardPageHelper;
 import org.example.pages.UserMenuPageHelper;
 import org.openqa.selenium.support.PageFactory;
@@ -25,19 +26,23 @@ public class UserMenuTests extends TestBase {
         Assert.assertEquals(userHelper.getEmail(), EMAIL, "it's not my mail");
     }
 
-    @Test
+    @Test()
     public void activityTest() {
         currentBoard = new CurrentBoardPageHelper(driver, "QA Haifa8");
-        boardsPage.waitUntilPageIsLoaded()
+        boardsPage
+                .waitUntilPageIsLoaded()
                 .enterToCurrentBoard(currentBoard.boardName);
-        currentBoard.addEmptyList("for activity");
+        currentBoard
+                .ifBoardsListEmpty()
+                .addCard("card for activity", 0);
         String activityText =
                 userHelper
                         .enterToMemberMenu()
                         .enterToactivity()
                         .getLasttActivity();
         System.out.println(activityText);
-        Assert.assertTrue(activityText.contains("Igor added list for activity to QA Haifa8"), "wrong activity");
+
+        Assert.assertTrue(activityText.contains("Igor added card for activity"), "wrong activity");
 
     }
 
