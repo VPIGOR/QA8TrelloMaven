@@ -27,21 +27,20 @@ public class LoginPageHelper extends PageBase {
     }
 
 
-
     public LoginPageHelper enterLoginAndPassNoAtl(String log, String pas) {
-        this.enterLoginNotAttl(log);
-        this.enterPasswordNoAtl(pas);
-        this.clicToLoginField();
-        waitUntilElementIsVisable(errorMassage, 5);
+        this.enterLoginNotAttl(log).
+                enterPasswordNoAtl(pas)
+                .clicToLoginField();
+
         return this;
     }
 
     public LoginPageHelper loginExistEmailAnyPass(String mail, String pas) {
-        this.enterLoginNotAttl(mail);
-        this.clicToLoginField();
-        this.waitUntilPassFildPresent();
-        this.enterPasswordNoAtl(pas);
-        this.clickToPasswoIn();
+        this.enterLoginNotAttl(mail)
+                .clicToLoginField()
+                .waitUntilPassFildPresent()
+                .enterPasswordNoAtl(pas)
+                .clickToPasswoIn();
         return this;
 
     }
@@ -86,6 +85,7 @@ public class LoginPageHelper extends PageBase {
         return errorMassage.isDisplayed();
     }
 
+
     public LoginPageHelper waitUntilLoginErrorMessageIsPresent() {
         waitUntilElementIsVisable(loginErrorMasage, 10);
         return this;
@@ -96,4 +96,12 @@ public class LoginPageHelper extends PageBase {
     }
 
 
+    public String getErrorMessage() {
+        return errorMassage.getText();
+    }
+
+    public LoginPageHelper waitErrorMassage() {
+        waitUntilElementIsVisable(errorMassage, 3);
+        return this;
+    }
 }

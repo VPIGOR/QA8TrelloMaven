@@ -2,6 +2,7 @@ package org.example.tests;
 
 
 import org.example.pages.CurrentBoardPageHelper;
+import org.example.util.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,10 +19,10 @@ public class CurrentBoardTests extends TestBase {
                 .enterToCurrentBoard(currentBoard.boardName);
     }
 
-    @Test
-    public void createNewList() {
+    @Test(dataProviderClass = DataProviders.class, dataProvider = "names")
+    public void createNewList(String listName) {
         int countOfListsBefore = currentBoard.listsSize();
-        currentBoard.addEmptyList("emty list");
+        currentBoard.addEmptyList(listName);
         int countOfListsAfter = currentBoard.listsSize();
         Assert.assertEquals(countOfListsBefore + 1, countOfListsAfter, "List didn't add");
     }
