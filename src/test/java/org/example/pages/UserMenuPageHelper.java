@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserMenuPageHelper extends PageBase {
@@ -24,11 +25,18 @@ public class UserMenuPageHelper extends PageBase {
     WebElement pofilePage;
     @FindBy(css = "[class='_32mB-ZO8fxjtUy']")
     WebElement memberName;
+    @FindBy(css = "[target='_blank']")
+    WebElement helpButton;
 
     public UserMenuPageHelper(WebDriver driver) {
         super(driver);
     }
 
+
+    public UserMenuPageHelper clickHelpButton(){
+        helpButton.click();
+        return this;
+    }
     public String getEmail() {
         return emailText.getText();
     }
@@ -53,6 +61,17 @@ public class UserMenuPageHelper extends PageBase {
 
     public String getLasttActivity() {
         return listActions.get(0).getText();
+    }
+
+
+
+    public void waitHelpPageLoaded(){
+        waitUntilWindowIsOpened(2,3);
+    }
+
+    public void goToHelpMenuWindow(){
+        ArrayList<String> handels = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(handels.get(1));
     }
 
 }

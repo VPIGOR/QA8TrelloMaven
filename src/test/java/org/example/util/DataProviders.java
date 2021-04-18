@@ -18,7 +18,7 @@ public class DataProviders {
                 DataProviders.class
                         .getResourceAsStream("/loginPositive.data")));
 
-        List<Object[]> userData = new ArrayList<Object[]>();
+        List<Object[]> userData = new ArrayList<>();
         String line = in.readLine();
         while (line != null) {
             userData.add(line.split(";"));
@@ -27,13 +27,14 @@ public class DataProviders {
         in.close();
         return userData.iterator();
     }
+
     @DataProvider
     public static Iterator<Object[]> loginNegative() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(
                 DataProviders.class
                         .getResourceAsStream("/loginNegative.data")));
 
-        List<Object[]> userData = new ArrayList<Object[]>();
+        List<Object[]> userData = new ArrayList<>();
         String line = in.readLine();
         while (line != null) {
             userData.add(line.split(";"));
@@ -49,7 +50,7 @@ public class DataProviders {
                 DataProviders.class
                         .getResourceAsStream("/names.data")));
 
-        List<Object> userData = new ArrayList<Object>();
+        List<Object> userData = new ArrayList<>();
         String line = in.readLine();
         while (line != null) {
             userData.add(line);
@@ -60,14 +61,12 @@ public class DataProviders {
     }
 
 
-
-
     @DataProvider
     public static Iterator<Object[]> dataProviderSecond() {
-        List<Object[]> data = new ArrayList();
-        data.add(new Object[]{"value11", "value21"});
-        data.add(new Object[]{"value12", "value22"});
-        data.add(new Object[]{"value13", "value23"});
+        List<Object[]> data = new ArrayList<>();
+        data.add(new Object[]{"log1", "pass1"});
+        data.add(new Object[]{"log2", "pass2"});
+        data.add(new Object[]{"log3", "pass3"});
 
         return data.iterator();
     }
@@ -77,26 +76,41 @@ public class DataProviders {
     public Iterator<Object[]> dataProviderThird() {
         List<Object[]> data = new ArrayList();
 
-        for(int i = 0; i < 4; ++i) {
-            data.add(new Object[]{this.generateRandomName(),this.generateRandomPassword()});
+        for (int i = 0; i < 4; ++i) {
+            data.add(new Object[]{this.generateRandomName(), this.generateRandomPassword()});
         }
 
         return data.iterator();
     }
 
+    @DataProvider
+    public Iterator<Object[]> dataProviderRandomLogin() {
+        List<Object[]> data = new ArrayList<>();
+        for (int i = 0; i < 2; ++i) {
+            data.add(new Object[]{this.generateRandomSymbols(2, 10), this.generateRandomSymbols(2, 10)});
+        }
+        return data.iterator();
+    }
+
+    private String generateRandomSymbols(int minSymbolsCount, int maxSymbolsCount) {
+        Random gen = new Random();
+        int countOfSimbols = minSymbolsCount + gen.nextInt(maxSymbolsCount - minSymbolsCount);
+        String pass = "";
+        for (int i = 0; i < countOfSimbols; i++) {
+            pass += (char) (32 + gen.nextInt(95));
+        }
+        return pass;
+    }
 
 
     private Object generateRandomName() {
-
-        return "demo" + (new Random()).nextInt()+"@gmail.com";
+        return "demo" + (new Random()).nextInt() + "@gmail.com";
     }
 
     private Object generateRandomPassword() {
 
         return "pass" + (new Random()).nextInt();
     }
-
-
 
 
 }

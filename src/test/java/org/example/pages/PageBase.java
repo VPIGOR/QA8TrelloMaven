@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -14,6 +16,16 @@ public abstract class PageBase {
     public PageBase(WebDriver driver) {
         this.driver = driver;
     }
+
+    public PageBase waitUntilWindowIsOpened(int numOfWindows, int time) {
+        try {
+            new WebDriverWait(driver, time).until(ExpectedConditions.numberOfWindowsToBe(numOfWindows));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
 
     public PageBase waitUntilElementIsClickabl(WebElement element, int time) {
         try {
@@ -59,6 +71,22 @@ public abstract class PageBase {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return this;
+    }
+
+    //--------------get name all of tabs-------------------
+    public List<String> handlesList() {
+        return new ArrayList<>(driver.getWindowHandles());
+
+    }
+
+    //---------------go to tab---------------------------------
+    public PageBase goToCurrentTab(String currentTabName) {
+     driver.switchTo().window(currentTabName);
+     return this;
+}
+    public PageBase closeCurrentWindow(){
+        driver.close();
         return this;
     }
 
