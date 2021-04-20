@@ -1,27 +1,24 @@
 package org.example.tests;
 
-import java.io.IOException;
-import java.net.URL;
-
 import org.example.SuiteConfiguration;
 import org.example.pages.BoardsPageHelper;
 import org.example.pages.HomePageHelper;
 import org.example.pages.LoginPageHelper;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.Capabilities;
-
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-
 import ru.stqa.selenium.factory.WebDriverPool;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Base class for TestNG-based test classes
  */
-public class TestBase {
+public abstract class TestBase {
 
     protected static URL gridHubUrl = null;
     protected static String baseUrl;

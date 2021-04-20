@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Tests" verbose="5">
+<suite name="Tests">
   <test name="Test1">
+    <parameter name="email"  value="qwe123123@gmail.com" />
+    <parameter name="password"  value="123123" />
     <classes>
-      <class name="org.example.SampleTest"/>
+      <class name="org.example.tests.LogInTests"/>
     </classes>
   </test>  
 </suite>

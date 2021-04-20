@@ -26,26 +26,6 @@ public class UserMenuTests extends TestBase {
         Assert.assertEquals(userHelper.getEmail(), EMAIL, "it's not my mail");
     }
 
-    @Test()
-    public void activityTest() {
-        currentBoard = new CurrentBoardPageHelper(driver, "QA Haifa8");
-        boardsPage
-                .waitUntilPageIsLoaded()
-                .enterToCurrentBoard(currentBoard.boardName);
-        currentBoard
-                .ifBoardsListEmpty()
-                .addCard("card for activity", 0);
-        String activityText =
-                userHelper
-                        .enterToMemberMenu()
-                        .enterToactivity()
-                        .getLasttActivity();
-        System.out.println(activityText);
-
-        Assert.assertTrue(activityText.contains("Igor added card for activity"), "wrong activity");
-
-    }
-
     @Test
     public void memberTitleTest() {
         String title =

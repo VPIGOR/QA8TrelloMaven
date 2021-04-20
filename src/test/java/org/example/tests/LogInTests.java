@@ -3,6 +3,7 @@ package org.example.tests;
 import org.example.util.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class LogInTests extends TestBase {
@@ -12,6 +13,14 @@ public class LogInTests extends TestBase {
     public void init() {
         loginPage.openLoginPage()
                 .waitUntilPageIsLoaded();
+    }
+
+    @Test
+    @Parameters({"email","password"})
+    public void loginNegativeParametresTest(String login, String pass) {
+        loginPage.enterLoginAndPassNoAtl(login, pass)
+                .waitErrorMassage();
+        Assert.assertTrue(loginPage.isDisplayErrorMessage(), "the message doesn't displaed");
     }
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "loginNegative")

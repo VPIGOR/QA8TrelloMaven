@@ -1,5 +1,6 @@
 package org.example.util;
 
+import net.bytebuddy.utility.RandomString;
 import org.testng.annotations.DataProvider;
 
 import java.io.BufferedReader;
@@ -87,7 +88,7 @@ public class DataProviders {
     public Iterator<Object[]> dataProviderRandomLogin() {
         List<Object[]> data = new ArrayList<>();
         for (int i = 0; i < 2; ++i) {
-            data.add(new Object[]{this.generateRandomSymbols(2, 10), this.generateRandomSymbols(2, 10)});
+            data.add(new Object[]{this.generateDigitsLiters(2, 10), this.generateDigitsLiters(2, 10)});
         }
         return data.iterator();
     }
@@ -97,7 +98,19 @@ public class DataProviders {
         int countOfSimbols = minSymbolsCount + gen.nextInt(maxSymbolsCount - minSymbolsCount);
         String pass = "";
         for (int i = 0; i < countOfSimbols; i++) {
-            pass += (char) (32 + gen.nextInt(95));
+            pass += (char) (48 + gen.nextInt(76));
+        }
+        return pass;
+    }
+    private String generateDigitsLiters(int minSymbolsCount, int maxSymbolsCount) {
+        String symbol = "0123456789zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP";
+        char[] arr = symbol.toCharArray();
+        Random gen = new Random();
+        int countOfSimbols = minSymbolsCount + gen.nextInt(maxSymbolsCount - minSymbolsCount);
+        String pass = "";
+        for (int i = 0; i < countOfSimbols; i++) {
+            int num = gen.nextInt(62);
+            pass += arr[num];
         }
         return pass;
     }

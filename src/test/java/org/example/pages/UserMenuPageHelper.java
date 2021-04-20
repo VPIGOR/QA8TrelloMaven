@@ -19,8 +19,6 @@ public class UserMenuPageHelper extends PageBase {
     List<WebElement> memberHedersList;
     @FindBy(css = "[class='window-module-title-icon icon-lg icon-organization']")
     WebElement workspacesActivity;
-    @FindBy(css = "[class='phenom mod-attachment-type']")
-    List<WebElement> listActions;
     @FindBy(css = "[class='_2Hw6DOX63Ah-JJ']")
     WebElement pofilePage;
     @FindBy(css = "[class='_32mB-ZO8fxjtUy']")
@@ -59,19 +57,5 @@ public class UserMenuPageHelper extends PageBase {
         return memberName.getText();
     }
 
-    public String getLasttActivity() {
-        return listActions.get(0).getText();
-    }
-
-
-
-    public void waitHelpPageLoaded(){
-        waitUntilWindowIsOpened(2,3);
-    }
-
-    public void goToHelpMenuWindow(){
-        ArrayList<String> handels = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(handels.get(1));
-    }
 
 }
