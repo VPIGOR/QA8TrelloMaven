@@ -1,6 +1,7 @@
 package org.example.util;
 
 import net.bytebuddy.utility.RandomString;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.DataProvider;
 
 import java.io.BufferedReader;
@@ -77,7 +78,7 @@ public class DataProviders {
     public Iterator<Object[]> dataProviderThird() {
         List<Object[]> data = new ArrayList();
 
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 2; ++i) {
             data.add(new Object[]{this.generateRandomName(), this.generateRandomPassword()});
         }
 

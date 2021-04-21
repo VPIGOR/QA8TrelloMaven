@@ -4,6 +4,7 @@ import org.example.SuiteConfiguration;
 import org.example.pages.BoardsPageHelper;
 import org.example.pages.HomePageHelper;
 import org.example.pages.LoginPageHelper;
+import org.example.util.LogLog4j;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -20,6 +21,7 @@ import java.net.URL;
  */
 public abstract class TestBase {
 
+    public static LogLog4j log4j = new LogLog4j();
     protected static URL gridHubUrl = null;
     protected static String baseUrl;
     protected static Capabilities capabilities;
@@ -36,6 +38,7 @@ public abstract class TestBase {
 
     @BeforeSuite
     public void initTestSuite() throws IOException {
+        log4j.startMethod("'TestBase - initTestSuite()'");
         SuiteConfiguration config = new SuiteConfiguration();
         baseUrl = config.getProperty("site.url");
         if (config.hasProperty("grid.url") && !"".equals(config.getProperty("grid.url"))) {
@@ -46,7 +49,7 @@ public abstract class TestBase {
 
     @BeforeMethod
     public void initWebDriver() {
-
+        log4j.startMethod("'TestBase - initWebDriver()'");
         driver = WebDriverPool.DEFAULT.getDriver(gridHubUrl, capabilities);
 
         loginPage = PageFactory.initElements(driver, LoginPageHelper.class);

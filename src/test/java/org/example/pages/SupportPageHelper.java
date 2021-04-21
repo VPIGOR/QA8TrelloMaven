@@ -2,8 +2,6 @@ package org.example.pages;
 
 import org.openqa.selenium.WebDriver;
 
-import java.util.ArrayList;
-
 
 public class SupportPageHelper extends PageBase {
 

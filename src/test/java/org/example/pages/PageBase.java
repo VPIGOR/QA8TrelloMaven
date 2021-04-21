@@ -1,5 +1,6 @@
 package org.example.pages;
 
+import org.example.util.LogLog4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +13,9 @@ import java.util.Random;
 
 public abstract class PageBase {
     WebDriver driver;
+
+    protected static LogLog4j log4j = new LogLog4j();
+
 
     public PageBase(WebDriver driver) {
         this.driver = driver;
@@ -82,10 +86,11 @@ public abstract class PageBase {
 
     //---------------go to tab---------------------------------
     public PageBase goToCurrentTab(String currentTabName) {
-     driver.switchTo().window(currentTabName);
-     return this;
-}
-    public PageBase closeCurrentWindow(){
+        driver.switchTo().window(currentTabName);
+        return this;
+    }
+
+    public PageBase closeCurrentWindow() {
         driver.close();
         return this;
     }
