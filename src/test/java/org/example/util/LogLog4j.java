@@ -32,6 +32,7 @@ public class LogLog4j {
     public static void endMethod(String methodName) {
 
         Log.info(rowCount+". ########## Method " + methodName + "  ENDED ##########");
+    //    Log.info("");
          rowCount++;
     }
 
@@ -61,6 +62,12 @@ public class LogLog4j {
     public static void info(String message) {
 
         Log.info(rowCount+". =====>>  " + message + "  ==>");
+        rowCount++;
+
+    }
+    public static void info1(String message) {
+
+        Log.info(rowCount+". ->  " + message);
         rowCount++;
 
     }

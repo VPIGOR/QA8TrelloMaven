@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.concurrent.TimeUnit;
+
 public class LoginPageHelper extends PageBase {
     @FindBy(css = ".field-group")
     WebElement passField;
@@ -51,7 +53,8 @@ public class LoginPageHelper extends PageBase {
 
     public LoginPageHelper waitUntilPageIsLoaded() {
         log4j.info("wait Until Page Is Loaded");
-        waitUntilElementIsClickabl(emailField, 10);
+        waitUntilElementIsVisable(emailField,5);
+        waitUntilElementIsClickabl(emailField, 3);
         return this;
     }
 
@@ -82,7 +85,8 @@ public class LoginPageHelper extends PageBase {
 
     public LoginPageHelper waitUntilPassFildPresent() {
         log4j.info("wait Until Password Fild is Present");
-        waitUntilElementIsClickabl(passField, 5);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        waitUntilElementIsClickabl(passField, 3);
         return this;
     }
 

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 public abstract class PageBase {
@@ -27,6 +28,11 @@ public abstract class PageBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this;
+    }
+
+    public PageBase implicitlyWait(){
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         return this;
     }
 
