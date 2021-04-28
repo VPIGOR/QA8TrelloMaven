@@ -12,7 +12,7 @@ public class SupportPageTest extends TestBase {
     UserMenuPageHelper userHelper;
     SupportPageHelper supportHelper;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void init()  {
         supportHelper = PageFactory.initElements(driver, SupportPageHelper.class);
         userHelper = PageFactory.initElements(driver, UserMenuPageHelper.class);
@@ -28,12 +28,12 @@ public class SupportPageTest extends TestBase {
                 .goToHelpMenuWindow();
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void supportPageTest(){
         Assert.assertEquals(supportHelper.titleHelpWindow(), "Contact Support", "not Help page");
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void mainPageExistTest() {
         supportHelper
                 .closeHelpWindow()

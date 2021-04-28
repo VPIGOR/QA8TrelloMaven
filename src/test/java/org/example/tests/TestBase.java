@@ -1,12 +1,14 @@
 package org.example.tests;
 
 import com.google.common.io.Files;
+import org.apache.commons.io.FileUtils;
 import org.example.SuiteConfiguration;
 import org.example.pages.BoardsPageHelper;
 import org.example.pages.HomePageHelper;
 import org.example.pages.LoginPageHelper;
 import org.example.util.LogLog4j;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -16,6 +18,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 import ru.stqa.selenium.factory.WebDriverPool;
 
 import java.io.File;
@@ -31,7 +34,9 @@ import java.util.Arrays;
 public abstract class TestBase {
 
     public static LogLog4j log4j = new LogLog4j();
-    Logger logger = LoggerFactory.getLogger(TestBase.class);
+
+//-------------logback initialization-----------------------------
+//    Logger logback = LoggerFactory.getLogger(TestBase.class);
 
 
     protected static URL gridHubUrl = null;
@@ -50,7 +55,6 @@ public abstract class TestBase {
 
     //------------------------------loger class----------------------------------------------
     public static class Mylistener extends AbstractWebDriverEventListener {
-
         @Override
         public void afterFindBy(By by, WebElement element, WebDriver driver) {
             log4j.info1(by + " element was found");
@@ -62,11 +66,13 @@ public abstract class TestBase {
         }
     }
 
-    private static void getScreenshot(TakesScreenshot driver) {
+//----------------------Screenshot-----------------------------------------------------
+    public static void getScreenshot(TakesScreenshot driver) {
         File tmp = driver.getScreenshotAs(OutputType.FILE);
-        File screen = new File("screen-"+System.currentTimeMillis()+".png");
+        File screen = new File("Screen/screen-"+System.currentTimeMillis()+".png");
         try {
-            Files.copy(tmp,screen);
+ //           Files.copy(tmp,screen);
+            FileUtils.copyFile(tmp,screen);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +80,7 @@ public abstract class TestBase {
     }
 
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void initTestSuite() throws IOException {
 
         log4j.startMethod("'TestBase - initTestSuite()'");
@@ -86,16 +92,23 @@ public abstract class TestBase {
         capabilities = config.getCapabilities();
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void initWebDriver(Method m, Object[] p) {
-//-------------------logger start --------------------------------------
-        logger.info("Start test: " + m.getName());
-        if (p.length != 0) {
-            logger.info(" --> With data: " + Arrays.asList(p));
-        }
+//-------------------logback start --------------------------------------
+//        logger.info("Start test: " + m.getName());
+//        if (p.length != 0) {
+//            logger.info(" --> With data: " + Arrays.asList(p));
+//        }
 //----------------------------------------------------------------------
         log4j.startMethod("'TestBase - initWebDriver()'");
 //        driver = WebDriverPool.DEFAULT.getDriver(gridHubUrl, capabilities);
+
+//   ----------- start whithout visability screen-----------------------
+//        ChromeOptions options = new ChromeOptions();
+//        options.setHeadless(true);
+//        options.addArguments("window-size=1200X60");
+//    -------------------------------------------------------------------
+
         driver = new EventFiringWebDriver(WebDriverPool.DEFAULT.getDriver(gridHubUrl, capabilities));
         driver.register(new Mylistener());
         loginPage = PageFactory.initElements(driver, LoginPageHelper.class);
@@ -105,7 +118,7 @@ public abstract class TestBase {
         driver.get(baseUrl);
         homePage.waitUntilPageIsLoaded();
     }
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void finishTest(ITestResult result){
        if(result.getStatus()==ITestResult.FAILURE){
            log4j.error("!!!!!!!!!!!!!----Test failed----!!!!!!!!!!!!!!");
@@ -118,14 +131,14 @@ public abstract class TestBase {
     @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) {
         WebDriverPool.DEFAULT.dismissAll();
-//-------------------logger write--------------------------------------------
-        if (result.isSuccess()) {
-            logger.info("Test result: PASSED");
-        } else {
-            logger.error("Test result: FAILED");
-        }
-        logger.info("Stop test: " + result.getMethod().getMethodName());
-        logger.info("======================================================");
+//-------------------logback write--------------------------------------------
+//        if (result.isSuccess()) {
+//            logger.info("Test result: PASSED");
+//        } else {
+//            logger.error("Test result: FAILED");
+//        }
+//        logger.info("Stop test: " + result.getMethod().getMethodName());
+//        logger.info("======================================================");
 //------------------------------------------------------------------------------
     }
 }

@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Tests">
-  <test name="Test1">
-    <parameter name="email"  value="qwe123123@gmail.com" />
-    <parameter name="password"  value="123123" />
+
+    <parameter name="email" value="qwe123123@gmail.com"/>
+
+  <test name="smoke testing">
+    <groups>
+      <run>
+        <include name="smoke"></include>
+        <exclude name="regression"></exclude>
+      </run>
+    </groups>
     <classes>
       <class name="org.example.tests.LogInTests"/>
+      <class name="org.example.tests.SupportPageTest"/>
+      <class name="org.example.tests.CurrentBoardTests"/>
     </classes>
-  </test>  
+  </test>
+  <test name="sptetial testing">
+    <groups>
+      <run>
+        <include name="smoke"></include>
+        <exclude name="regression"></exclude>
+      </run>
+    </groups>
+    <classes>
+      <class name="org.example.tests.LogInTests"/>
+      <class name="org.example.tests.SupportPageTest"/>
+      <class name="org.example.tests.CurrentBoardTests"/>
+    </classes>
+  </test>
 </suite>

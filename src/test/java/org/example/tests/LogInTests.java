@@ -11,20 +11,18 @@ import java.util.ArrayList;
 public class LogInTests extends TestBase {
 
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void init() {
         log4j.startMethod("'LogInTests - init()'");
         loginPage.openLoginPage()
                 .waitUntilPageIsLoaded();
     }
 // -----------------not work need to check--------------------------------------------------------------------
-//    @Test
-//    @Parameters({"email", "password"})
-//    public void loginNegativeParametresTest(String login, String pass) {
-//        loginPage.enterLoginAndPassNoAtl(login, pass)
-//                .waitErrorMassage();
-//        Assert.assertTrue(loginPage.isDisplayErrorMessage(), "the message doesn't displaed");
-//    }
+    @Parameters(value = {"email"})
+    @Test
+    public void loginNegativeParametresTest(String email) {
+        System.out.println(email);
+    }
 //-------------------------------------------------------------------------------------------------------
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "loginNegative")
@@ -64,7 +62,7 @@ public class LogInTests extends TestBase {
         log4j.endTestCase2();
     }
 
-    @Test(dataProviderClass = DataProviders.class, dataProvider = "loginPositive")
+    @Test(groups = {"smoke","regression"}, dataProviderClass = DataProviders.class, dataProvider = "loginPositive")
     public void loginPossitiveTest(String login, String pass) {
         log4j.startTestCase("loginPossitiveTest");
         loginPage.loginExistEmailAnyPass(login, pass);
