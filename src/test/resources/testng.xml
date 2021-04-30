@@ -12,9 +12,9 @@
 
     <classes>
       <class name="org.example.tests.LogInTests">
-          <methods>
-              <include name="loginNegativeParametresTest"></include>
-          </methods>
+<!--          <methods>-->
+<!--              <include name="loginNegativeParametresTest"></include>-->
+<!--          </methods>-->
       </class>
 
 
