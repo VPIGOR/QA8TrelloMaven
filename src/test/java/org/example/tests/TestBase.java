@@ -1,6 +1,6 @@
 package org.example.tests;
 
-import com.google.common.io.Files;
+
 import org.apache.commons.io.FileUtils;
 import org.example.SuiteConfiguration;
 import org.example.pages.BoardsPageHelper;
@@ -8,24 +8,20 @@ import org.example.pages.HomePageHelper;
 import org.example.pages.LoginPageHelper;
 import org.example.util.LogLog4j;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
 import ru.stqa.selenium.factory.WebDriverPool;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.lang.String;
 import java.net.URL;
-import java.util.Arrays;
 
 
 /**
@@ -64,6 +60,7 @@ public abstract class TestBase {
             log4j.error("Error: " + throwable);
             getScreenshot((TakesScreenshot) driver);
         }
+
     }
 
 //----------------------Screenshot-----------------------------------------------------

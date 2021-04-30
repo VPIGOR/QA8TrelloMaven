@@ -61,6 +61,7 @@ public class CurrentBoardPageHelper extends PageBase {
     }
 
     public CurrentBoardPageHelper addCard(String cardName, int listNum) {
+        implicitlyWait();
         int countOfCardBefore = cardSize();
         clickCreateCardButton(listNum);
         enterNameOfCard(cardName);

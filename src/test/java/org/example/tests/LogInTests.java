@@ -1,12 +1,13 @@
 package org.example.tests;
 
+
 import org.example.util.DataProviders;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
+
 
 public class LogInTests extends TestBase {
 
@@ -17,13 +18,13 @@ public class LogInTests extends TestBase {
         loginPage.openLoginPage()
                 .waitUntilPageIsLoaded();
     }
-// -----------------not work need to check--------------------------------------------------------------------
+
     @Parameters(value = {"email"})
-    @Test
+    @Test(groups = "param")
     public void loginNegativeParametresTest(String email) {
         System.out.println(email);
     }
-//-------------------------------------------------------------------------------------------------------
+
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "loginNegative")
     public void loginNegativeTestAllWrongData(String login, String pass, String errorMassage) {
@@ -53,7 +54,7 @@ public class LogInTests extends TestBase {
         log4j.endTestCase2();
     }
 
-    @Test
+    @Test(priority = 1)
     public void loginNegativeTestWrongPassword() {
         log4j.startTestCase("loginNegativeTestWrongPassword");
         loginPage.loginExistEmailAnyPass(EMAIL, "password")
